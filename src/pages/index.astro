@@ -1,11 +1,190 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import { profile, skills, projects, education } from '../data/site';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const contactLinks = [
+  { label: 'Instagram', href: profile.instagram },
+  { label: 'GitHub', href: profile.github },
+  { label: 'LinkedIn', href: profile.linkedin },
+  { label: 'Email', href: profile.email ? `mailto:${profile.email}` : null }
+].filter((item) => Boolean(item.href));
+const posterLabels = [
+  ['SISTEM', 'AKTIF'],
+  ['ALUR', 'KERJA'],
+  ['STUDI', 'WEB']
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="Faqih Ahmadineza | Portofolio"
+  description="Portofolio Faqih Ahmadineza — mahasiswa Sistem Informasi yang tertarik pada analisis sistem, digitalisasi proses bisnis, dan pengembangan aplikasi."
+>
+  <main class="portfolio-deck">
+    <section id="home" class="deck-slide cover-slide" aria-labelledby="cover-title">
+      <div class="slide-frame cover-frame">
+        <div class="slide-meta">
+          <a class="wordmark" href="#home" aria-label="Faqih Ahmadineza, kembali ke sampul">
+            <span class="wordmark-mark">FA</span>
+            <span>PORTOFOLIO <span class="wordmark-year">/ 2025</span></span>
+          </a>
+          <span class="slide-count">01 <span>/</span> 04</span>
+        </div>
+
+        <div class="cover-copy">
+          <p class="eyebrow"><span class="status-dot"></span> Mahasiswa Sistem Informasi</p>
+          <h1 id="cover-title">Gagasan jadi<br /><span>solusi nyata.</span></h1>
+          <p class="cover-description">{profile.tagline}</p>
+          <a class="text-link" href="#about">Kenali saya <span aria-hidden="true">↘</span></a>
+        </div>
+
+        <div class="cover-aside" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="orbit orbit-three"></div>
+          <div class="cover-square"></div>
+          <div class="cover-note"><span>01—04</span><br />Sekilas tentang<br />karya dan proses.</div>
+        </div>
+
+        <div class="slide-bottom">
+          <span>{profile.location}</span>
+          <a href="#projects">GULIR UNTUK MENJELAJAH <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="deck-slide about-slide" aria-labelledby="about-title">
+      <div class="slide-frame about-frame">
+        <div class="slide-meta">
+          <span class="section-label">02 — Tentang saya</span>
+          <span class="slide-count">02 <span>/</span> 04</span>
+        </div>
+
+        <div class="about-grid">
+          <div class="portrait-wrap">
+            <span class="portrait-index">FIG. 01 &nbsp; / &nbsp; F.A.</span>
+            <img src="/avatar.jpg" alt="Potret Faqih Ahmadineza" class="portrait-image" />
+            <span class="portrait-caption">Sistem, proses &amp; kemungkinan.</span>
+            <span class="portrait-outline" aria-hidden="true"></span>
+          </div>
+
+          <div class="about-copy">
+            <p class="eyebrow">HALO, SAYA FAQIH</p>
+              <h2 id="about-title">Selalu ingin tahu.<br /><span>Berpikir praktis.</span></h2>
+            <p class="about-description">{profile.shortBio}</p>
+
+            <div class="about-details">
+              <div>
+                <span class="detail-label">PEKERJAAN</span>
+                <p>Staf Retur / Divisi Retur Gudang<br /><span>{profile.company}</span></p>
+              </div>
+              <div>
+                <span class="detail-label">BELAJAR</span>
+                <p>{education[0].title}<br /><span>{education[0].institution}</span></p>
+              </div>
+            </div>
+
+            <div class="skill-list" aria-label="Bidang yang saya kembangkan">
+              {skills.flatMap((group) => group.items.slice(0, 2)).slice(0, 5).map((skill) => (
+                <span>{skill}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-bottom">
+          <span>Memahami kebutuhan, merancang solusi.</span>
+          <a href="#projects">BERIKUTNYA <span aria-hidden="true">↘</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="deck-slide projects-slide" aria-labelledby="projects-title">
+      <div class="slide-frame projects-frame">
+        <div class="slide-meta">
+          <span class="section-label">03 — Pilihan karya</span>
+          <span class="slide-count">03 <span>/</span> 04</span>
+        </div>
+
+        <div class="projects-heading">
+          <div>
+            <p class="eyebrow">DARI IDE MENJADI KARYA</p>
+            <h2 id="projects-title">Karya <span>pilihan.</span></h2>
+          </div>
+          <p>Beberapa eksplorasi tentang sistem, data, dan proses yang lebih baik.</p>
+        </div>
+
+        <div class="poster-gallery">
+          {projects.map((project, index) => (
+            <a class={`project-poster poster-${index + 1}`} href={`/proyek/${project.slug}`}>
+              <div class="poster-art" aria-hidden="true">
+                <span class="poster-number">0{index + 1}</span>
+                <span class="poster-orbit"></span>
+                <span class="poster-square"></span>
+                <span class="poster-line"></span>
+                <span class="poster-stamp">
+                  {posterLabels[index].map((line) => <span>{line}</span>)}
+                </span>
+              </div>
+              <div class="poster-info">
+                <span class="poster-category">{project.category === 'Web Application' ? 'Aplikasi Web' : project.category}</span>
+                <span class="poster-title">{project.title}</span>
+                <span class="poster-description">{project.description}</span>
+                <span class="poster-stack">{project.stack.join('  ·  ')}</span>
+                <span class="poster-arrow" aria-hidden="true">↗</span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div class="slide-bottom">
+          <span>Karya pilihan &nbsp;·&nbsp; 2023—2025</span>
+          <a href="#contact">LANJUT KE KONTAK <span aria-hidden="true">↘</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="deck-slide contact-slide" aria-labelledby="contact-title">
+      <div class="slide-frame contact-frame">
+        <div class="slide-meta">
+          <span class="section-label">04 — Sampai jumpa</span>
+          <span class="slide-count">04 <span>/</span> 04</span>
+        </div>
+
+        <div class="contact-content">
+          <div class="contact-copy">
+            <p class="eyebrow"><span class="status-dot"></span> TERBUKA UNTUK KOLABORASI</p>
+            <h2 id="contact-title">Terima kasih<br /><span>telah berkunjung.</span></h2>
+            <p>Senang bertemu orang baru dan bertukar ide. Punya gagasan menarik? Mari berbincang.</p>
+            <div class="contact-actions">
+              {contactLinks.map((item) => (
+                <a
+                  href={item.href}
+                  target={item.label === 'Email' ? undefined : '_blank'}
+                  rel={item.label === 'Email' ? undefined : 'noreferrer'}
+                  class="contact-link"
+                >
+                  {item.label}<span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div class="contact-art" aria-hidden="true">
+            <span class="thank-you">TERIMA<br />KASIH</span>
+            <span class="contact-outline-square"></span>
+            <span class="contact-diagonal"></span>
+            <span class="contact-spark">✳</span>
+          </div>
+        </div>
+
+        <div class="slide-bottom">
+          <a class="wordmark" href="#home">
+            <span class="wordmark-mark">FA</span>
+            <span>FAQIH AHMADINEZA</span>
+          </a>
+          <span>© {new Date().getFullYear()} &nbsp;—&nbsp; Dibuat dengan rasa ingin tahu.</span>
+        </div>
+      </div>
+    </section>
+  </main>
 </Layout>

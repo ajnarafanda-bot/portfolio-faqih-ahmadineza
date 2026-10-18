@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Faqih Ahmadineza Portfolio</title>
+  <desc id="desc">Modern portfolio preview card for Faqih Ahmadineza</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#120b0d"/>
+      <stop offset="100%" stop-color="#1b0d12"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f6c0c9"/>
+      <stop offset="100%" stop-color="#c8102e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" rx="36"/>
+  <circle cx="1035" cy="130" r="220" fill="url(#accent)" opacity="0.18"/>
+  <circle cx="980" cy="500" r="250" fill="#d9344d" opacity="0.12"/>
+  <rect x="70" y="70" width="110" height="110" rx="28" fill="url(#accent)"/>
+  <text x="95" y="142" font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="52" fill="#fff">F</text>
+  <text x="70" y="290" font-family="Segoe UI, Arial, sans-serif" font-size="52" font-weight="700" fill="#f8fafc">Faqih Ahmadineza</text>
+  <text x="70" y="350" font-family="Segoe UI, Arial, sans-serif" font-size="28" fill="#f3d2d8">Web Developer / UI Designer</text>
+  <text x="70" y="470" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#d9c9c2">Modern • Responsive • Future-ready</text>
+  <g transform="translate(760 170)">
+    <rect width="300" height="240" rx="32" fill="#151011" fill-opacity="0.8" stroke="#d62d48" stroke-opacity="0.5"/>
+    <rect x="40" y="36" width="72" height="72" rx="18" fill="url(#accent)"/>
+    <text x="40" y="160" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="#f8fafc">5+ Years</text>
+    <text x="40" y="196" font-family="Segoe UI, Arial, sans-serif" font-size="18" fill="#d9c9c2">Design &amp; Development</text>
+  </g>
+</svg>

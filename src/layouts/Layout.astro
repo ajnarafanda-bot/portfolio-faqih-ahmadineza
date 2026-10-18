@@ -1,23 +1,151 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/global.css';
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+const {
+  title = 'Faqih Ahmadineza | Mahasiswa Sistem Informasi',
+  description = 'Portofolio personal Faqih Ahmadineza — mahasiswa Sistem Informasi yang tertarik pada analisis sistem, digitalisasi proses bisnis, dan pengembangan aplikasi.'
+} = Astro.props;
+
+const navLinks = [
+  { href: '#about', label: 'Tentang' },
+  { href: '#projects', label: 'Karya' },
+  { href: '#contact', label: 'Kontak' }
+];
+---
+
+<!doctype html>
+<html lang="id" class="scroll-smooth bg-bg text-text">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/og-image.svg" />
+    <meta property="og:site_name" content="Faqih Ahmadineza" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+
+  <body class="min-h-screen bg-bg text-text antialiased">
+    <header class="site-header">
+      <nav class="site-nav" aria-label="Navigasi utama">
+        <a href="#home" class="wordmark" aria-label="Faqih Ahmadineza, kembali ke sampul">
+          <span class="wordmark-mark">FA</span>
+          <span>FAQIH <span class="wordmark-year">AHMADINEZA</span></span>
+        </a>
+
+        <div class="desktop-nav">
+          {navLinks.map((item, index) => (
+            <a
+              href={item.href}
+              data-nav-link={item.href}
+              class="nav-link"
+            >
+              <span>0{index + 1}</span> {item.label}
+            </a>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          class="menu-toggle"
+          data-menu-toggle
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+
+      <div id="mobile-menu" class="mobile-menu hidden">
+        {navLinks.map((item, index) => (
+          <a href={item.href} class="mobile-nav-link">
+            <span>0{index + 1}</span> {item.label}
+          </a>
+        ))}
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <script is:inline>
+      const menuToggle = document.querySelector('[data-menu-toggle]');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+          const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+          menuToggle.setAttribute('aria-expanded', String(!expanded));
+          mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            menuToggle.setAttribute('aria-expanded', 'false');
+            mobileMenu.classList.add('hidden');
+          });
+        });
+      }
+
+      const navLinks = document.querySelectorAll('[data-nav-link]');
+      const sections = Array.from(document.querySelectorAll('section[id]'));
+      const setActiveLink = (id) => {
+        navLinks.forEach((link) => {
+          const active = link.getAttribute('data-nav-link') === `#${id}`;
+          link.classList.toggle('text-white', active);
+          link.classList.toggle('text-muted', !active);
+        });
+      };
+
+      if (sections.length && navLinks.length) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (visible) setActiveLink(visible.target.id);
+          },
+          { threshold: [0.3, 0.6] }
+        );
+
+        sections.forEach((section) => observer.observe(section));
+      }
+
+      const reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                revealObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+
+        reveals.forEach((element) => revealObserver.observe(element));
+      } else {
+        reveals.forEach((element) => element.classList.add('is-visible'));
+      }
+    </script>
+  </body>
+</html>

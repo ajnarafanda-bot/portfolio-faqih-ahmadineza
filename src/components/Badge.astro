@@ -1,0 +1,13 @@
+---
+const { tone = 'default' } = Astro.props;
+
+const classMap = {
+  default: 'border-white/10 bg-white/5 text-muted',
+  blue: 'border-primary/30 bg-primary/10 text-primary',
+  learning: 'border-dashed border-primary/40 bg-primary/10 text-primary'
+};
+---
+
+<span class={`inline-flex items-center rounded-full border px-3 py-1 text-[0.7rem] font-medium tracking-[0.14em] uppercase ${classMap[tone]}`}>
+  <slot />
+</span>
