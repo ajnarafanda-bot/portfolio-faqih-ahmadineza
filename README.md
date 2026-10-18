@@ -85,7 +85,7 @@ Isi token Web3Forms:
 
 ```env
 WEB3FORMS_ACCESS_KEY=your_access_key_here
-PUBLIC_SITE_URL=https://faqih-ahmadineza.pages.dev
+PUBLIC_SITE_URL=https://faqih-ahmadineza.ajnarafanda.workers.dev
 ```
 
 ## Build untuk produksi
@@ -137,7 +137,7 @@ Project sudah dilengkapi dengan `.gitignore` untuk membatasi file sensitif seper
 Pastikan domain utama diubah di `astro.config.mjs` sesuai domain Cloudflare Pages Anda sebelum deploy publik. Contoh:
 
 ```js
-site: 'https://faqih-ahmadineza.pages.dev'
+site: 'https://faqih-ahmadineza.ajnarafanda.workers.dev'
 ```
 
 ## Lisensi

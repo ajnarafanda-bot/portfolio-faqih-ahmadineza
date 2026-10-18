@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://faqih-ahmadineza.pages.dev',
+   site: 'https://faqih-ahmadineza.ajnarafanda.workers.dev',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]
